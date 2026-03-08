@@ -1,0 +1,117 @@
+﻿<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <!-- Created using Storyline 360 x64 - http://www.articulate.com  -->
+  <!-- version: 3.103.35301.0 -->
+  <title>Elias_TSAPA</title>
+  <meta http-equiv="x-ua-compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no,minimal-ui"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <style>
+    html, body { height: 100%; padding: 0; margin: 0 }
+    #app { height: 100%; width: 100%; }
+  </style>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
+  <script>
+    window.DS = {};
+    window.globals = {
+      DATA_PATH_BASE: '',
+      HAS_FRAME: true,
+      HAS_SLIDE: true,
+
+      lmsPresent: false,
+      tinCanPresent: false,
+      cmi5Present: false,
+      aoSupport: false,
+      scale: 'Scaled',
+      captureRc: false,
+      browserSize: 'optimal',
+      bgColor: '#282828',
+      features: 'DropInBase,MultipleQuizTracking,PlayerSizeOption',
+      themeName: 'unified',
+      preloaderColor: '#FFFFFF',
+      suppressAnalytics: false,
+      productChannel: 'stable',
+      publishSource: 'storyline',
+      aid: 'aid|80f528d7-d538-48b3-82fe-a8c4ba2b8a7b',
+      cid: 'b8a5770a-b17c-4b33-9b93-1162a015747f',
+      playerVersion: '3.103.35301.0',
+      publishTimestamp: '2026-03-08T10:03:34.0633591Z',
+      maxIosVideoElements: 10,
+      connectionSettings: { message: 'You%20are%20offline.%20Trying%20to%20reconnect...', useDarkTheme: false, mode: 'disabled' },
+      hasFeature: function(feature) {
+        return this.features.split(',').includes(feature);
+      },
+      
+      parseParams: function(qs) {
+        if (window.globals.parsedParams != null) {
+          return window.globals.parsedParams;
+        }
+        qs = (qs || window.location.search.substr(1)).split('+').join(' ');
+        var params = {},
+            tokens,
+            re = /[?&]?([^=]+)=([^&]*)/g;
+
+        while (tokens = re.exec(qs)) {
+          params[decodeURIComponent(tokens[1]).trim()] =
+            decodeURIComponent(tokens[2]).trim();
+        }
+        window.globals.parsedParams = params;
+        return params;
+      }
+
+    };
+
+    if (window.flagsUnderTest != null) {
+      window.globals.features = window.flagsUnderTest.reduce((accum, feature) => {
+        if (!accum.includes(feature)) {
+          accum.push(feature);
+        }
+        return accum;
+      }, window.globals.features.split(',')).join();
+    }
+  </script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBg0JdOQ81uG9SUbv9xK5DM8zZlzKf_D8U",
+      authDomain: "aliaspolicegame.firebaseapp.com",
+      databaseURL: "https://aliaspolicegame-default-rtdb.firebaseio.com",
+      projectId: "aliaspolicegame",
+      storageBucket: "aliaspolicegame.firebasestorage.app",
+      messagingSenderId: "19626334698",
+      appId: "1:19626334698:web:c3b0e164bb5098a14bba93",
+      measurementId: "G-LW2N51LFHM"
+    };
+
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+
+    window.db = firebase.database();
+    window.room = "room1";
+  </script>
+
+  <script>
+    var isIe11 = ('ActiveXObject' in window || window.MSBlobBuilder != null)
+      && window.msCrypto != null && !window.ActiveXObject;
+    if (isIe11) {
+      window.globals.unsupportedBrowser = true;
+      document.write(atob('PHN0eWxlPg0KICBAZm9udC1mYWNlIHsNCiAgICBmb250LWZhbWlseTogIk9wZW4gU2FucyBGdWxsIjsNCiAgICBmb250LXN0eWxlOiBub3JtYWw7DQogICAgZm9udC13ZWlnaHQ6IDQwMDsNCiAgICBzcmM6IHVybCgiLi9odG1sNS9saWIvc3R5bGVzaGVldHMvbW9iaWxlLWZvbnRzL29wZW4tc2Fucy1yZWd1bGFyLndvZmYiKSBmb3JtYXQoIndvZmYiKTsNCiAgfQ0KDQogICogew0KICAgIG1hcmdpbjogMDsNCiAgICBwYWRkaW5nOiAwOw0KICB9DQoNCiAgYm9keSwNCiAgaHRtbCB7DQogICAgYmFja2dyb3VuZDogYmxhY2s7DQogICAgY29sb3I6IHdoaXRlOw0KICAgIGZvbnQtZmFtaWx5OiAiT3BlbiBTYW5zIEZ1bGwiLCBzYW5zLXNlcmlmOw0KICAgIGZvbnQtc2l6ZTogMTZweDsNCiAgICBoZWlnaHQ6IDEwMCU7DQogICAgdGV4dC1hbGlnbjogY2VudGVyOw0KICAgIG92ZXJmbG93OiBoaWRkZW47DQogIH0NCg0KICAuc2xpZGUtbG9hZGVyIHsNCiAgICBkaXNwbGF5OiBub25lOw0KICB9DQoNCiAgLm1vYmlsZS1zdGFydC1jb3Vyc2UtdGl0bGUgew0KICAgIGZvbnQtc2l6ZTogMjlweDsNCiAgICBwYWRkaW5nLWJvdHRvbTogMzMuNzVweDsNCiAgICBwYWRkaW5nLXRvcDogMzMuNzVweDsNCiAgICB0ZXh0LXNoYWRvdzogNHB4IDRweCAyNXB4IHJnYigwLCAwLCAwLCAuMyk7DQogICAgY29sb3I6ICNlOGU4ZTg7DQogICAgei1pbmRleDogOTk5Ow0KICB9DQoNCiAgcCB7DQogICAgZm9udC1zaXplOiAxLjFlbTsNCiAgfQ0KDQogIHNwYW4gew0KICAgIGhlaWdodDogMTAwJTsNCiAgICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlOw0KICAgIGRpc3BsYXk6IGlubGluZS1ibG9jazsNCiAgfQ0KDQogIC5jb250ZW50IHsNCiAgICBiYWNrZ3JvdW5kOiAjMDAwOw0KICAgIHRleHQtYWxpZ246IGxlZnQ7DQogICAgZm9udC1zaXplOiAxNXB4Ow0KICAgIGNvbG9yOiAjYWFhOw0KICAgIHdpZHRoOiA4MCU7DQogICAgbWF4LXdpZHRoOiA1MzVweDsNCiAgICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlOw0KICAgIGRpc3BsYXk6IGlubGluZS1ibG9jazsNCiAgfQ0KDQogIC5idG4tY29udGFpbiB7DQogICAgcG9zaXRpb246IHJlbGF0aXZlOw0KICAgIG1hcmdpbi10b3A6IDNlbTsNCiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7DQogIH0NCg0KICAuaWUxMS13YXJuIHAgYSB7DQogICAgY29sb3I6ICM1ZGIwZmYgIWltcG9ydGFudDsNCiAgICB0ZXh0LWRlY29yYXRpb246IHVuZGVybGluZSAhaW1wb3J0YW50Ow0KICB9DQoNCiAgYS5sZWFybiB7DQogICAgcG9zaXRpb246IHJlbGF0aXZlOw0KICAgIGZsb2F0OiBsZWZ0Ow0KICAgIG1hcmdpbi1yaWdodDogMmVtOw0KICAgIGRpc3BsYXk6IGlubGluZS1ibG9jazsNCiAgICBib3JkZXI6IDFweCBzb2xpZCB3aGl0ZTsNCiAgICBjb2xvcjogYmxhY2sgIWltcG9ydGFudDsNCiAgICB0ZXh0LWRlY29yYXRpb246IG5vbmU7DQogICAgcGFkZGluZzogLjVlbTsNCiAgICBwYWRkaW5nOiAxOHB4Ow0KICAgIHBhZGRpbmctbGVmdDogNTBweDsNCiAgICBwYWRkaW5nLXJpZ2h0OiAzMHB4Ow0KICAgIGJhY2tncm91bmQ6ICNmZmY7DQogICAgYm9yZGVyLXJhZGl1czogNDBweDsNCiAgICBjdXJzb3I6IHBvaW50ZXI7DQogIH0NCg0KICBhLmxlYXJuOmFmdGVyIHsNCiAgICBjb250ZW50OiAiIjsNCiAgICBwb3NpdGlvbjogYWJzb2x1dGU7DQogICAgcG9pbnRlci1ldmVudHM6IG5vbmU7DQogICAgbGVmdDogMjBweDsNCiAgICB0b3A6IDUwJTsNCiAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZVkoLTUwJSk7DQogICAgd2lkdGg6IDA7DQogICAgaGVpZ2h0OiAwOw0KICAgIGJvcmRlci1zdHlsZTogc29saWQ7DQogICAgYm9yZGVyLXdpZHRoOiA5cHggMCA5cHggMTVweDsNCiAgICBib3JkZXItY29sb3I6IHRyYW5zcGFyZW50IHRyYW5zcGFyZW50IHRyYW5zcGFyZW50ICM2ZTZlNmU7DQogICAgY2xlYXI6IGJvdGg7DQogIH0NCg0KICAuaWUxMS13YXJuIHsNCiAgICBwb3NpdGlvbjogZml4ZWQ7DQogICAgd2lkdGg6IDEwMCU7DQogICAgaGVpZ2h0OiAxMDAlOw0KICAgIGJhY2tncm91bmQ6IGJsYWNrOw0KICB9DQo8L3N0eWxlPg0KDQo8ZGl2IGNsYXNzPSJpZTExLXdhcm4iPg0KICA8c3Bhbj48L3NwYW4+DQogIDxkaXYgY2xhc3M9ImNvbnRlbnQiPg0KICAgIDxkaXYgY2xhc3M9Im1vYmlsZS1zdGFydC1jb3Vyc2UtdGl0bGUiPkVuZCBvZiBTdXBwb3J0IGZvciBJbnRlcm5ldCBFeHBsb3JlciAxMTwvZGl2Pg0KICAgIDxwPkZvbGxvd2luZyBNaWNyb3NvZnQncyBsZWFkLCB3ZSBlbmRlZCBzdXBwb3J0IGZvciBJbnRlcm5ldCBFeHBsb3JlciAxMSAoSUUxMSkuDQogICAgICBBcyBvZiBKdWx5IDIwMjIsIHlvdSBjYW4gbm8gbG9uZ2VyIHZpZXcgUmlzZSAzNjAsIFN0b3J5bGluZSAzNjAsIG9yIFN0dWRpbyAzNjANCiAgICAgIGNvdXJzZXMgaW4gSUUxMS4gVXNlIHRoZSBsYXRlc3QgdmVyc2lvbiBvZiBhIHN1cHBvcnRlZCBicm93c2VyIC0NCiAgICAgIDxhIGhyZWY9Imh0dHBzOi8vd3d3Lmdvb2dsZS5jb20vY2hyb21lL2Rvd25sb2Fkcy8iIHRhcmdldD0iX2JsYW5rIj5Hb29nbGUgQ2hyb21lPC9hPiwNCiAgICAgIDxhIGhyZWY9Imh0dHBzOi8vd3d3Lm1pY3Jvc29mdC5jb20vZW4tdXMvZWRnZSIgdGFyZ2V0PSJfYmxhbmsiPk1pY3Jvc29mdCBFZGdlPC9hPiwNCiAgICAgIG9yDQogICAgICA8YSBocmVmPSJodHRwczovL3d3dy5tb3ppbGxhLm9yZy9lbi1VUy9maXJlZm94L25ldy8iIHRhcmdldD0iX2JsYW5rIj5Nb3ppbGxhIEZpcmVmb3g8L2E+Lg0KICAgIDwvcD4NCiAgICA8ZGl2IGNsYXNzPSJidG4tY29udGFpbiI+DQogICAgICA8YSBjbGFzcz0ibGVhcm4iIGhyZWY9Imh0dHBzOi8vYXJ0aWN1bGF0ZS5jb20vc3VwcG9ydC9hcnRpY2xlL0VuZC1vZi1TdXBwb3J0LWZvci1JbnRlcm5ldCBFeHBsb3Jlci0xMSINCiAgICAgICAgdGFyZ2V0PSJfYmxhbmsiPkxlYXJuIE1vcmU8L2E+DQogICAgPC9kaXY+DQogIDwvZGl2Pg0KPC9kaXY+DQo='));
+    }
+  </script>
+
+  <script>
+    if (window.globals.hasFeature('Localization')) {
+      
+      
+    }
+  </script>
+
+  <script>window.THREE = { };</script>
+</head>
+<body style="background: #282828" class="cs-HTML theme-unified">
